@@ -1,0 +1,132 @@
+
+.body {
+    background-color: aqua;
+}
+
+.panel-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: auto;
+    display: flex;
+    padding-right: 15%;
+    padding-left: 15%;
+    padding-top: 8%;
+    padding-bottom: 8%;
+    background-color: #EDEDED;
+}
+
+.right-panel {
+    flex: 1;
+    background-color: #5484FF;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    box-shadow: 5px 5px 10px gray;
+    text-align: center;
+}
+
+.sci-logo {
+    height: 180px;
+    margin-right: 40px;
+    margin-top: 50px;
+}
+
+.right-panel h2 {
+    font-family: 'Courier New', Courier, monospace;
+    font-style: normal;
+    text-align: start;
+    margin-left: 40px;
+    margin-top: 0px;
+    font-size: 40px;
+    color: #FFFFFF;
+}
+
+.notbold{
+    font-weight:normal;
+}
+
+.right-panel p {
+    font-family: 'Courier New', Courier, monospace;
+    font-style: normal;
+    text-align: start;
+    font-size: 30px;
+    margin-left: 40px;
+    margin-right: 20px;
+    margin-top: -20px;
+    color: #FFFFFF;
+}
+
+.button-bar {
+    display: flex;
+    align-items: center;
+}
+
+.meta-logo {
+    flex: 2;
+    height: 100px;
+}
+
+.enter-button {
+
+    border-radius: 15px;
+    border-color: white;
+    border-width: 2px;
+    background-color: #5484FF;
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    flex: 3;
+    height: 40px;
+    margin-right: 20px;
+
+}
+
+.enter-button:hover{
+    background-color: lightskyblue;
+}
+
+.left-panel {
+    flex: 2;
+    text-align: center;
+    background-color: #FFFFFF;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: 5px 5px 10px gray;
+}
+
+.left-panel h2 {
+    font-family: 'Courier New', Courier, monospace;
+    color: #5484FF;
+    margin: 50px;
+    text-align: center;
+    font-size: 40px;
+}
+
+.left-panel p {
+    font-family: 'Courier New', Courier, monospace;
+    color: #5484FF;
+    text-align: start;
+    margin: 50px;
+    font-size: 25px;
+}
+
+.meta-account {
+    border-radius: 15px;
+    border-width: 0px;
+    background-color: #F6851B;
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    flex: 3;
+    height: 60px;
+    margin-right: 20px; 
+    width: 45%;
+}
+
+.meta-account:hover{
+    background-color: #ffa653;
+}
