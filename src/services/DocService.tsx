@@ -1,22 +1,21 @@
-import axios from "axios";
 import { Doc } from "../entities/Doc";
-import { IP } from "../entities/IP";
+import { api } from "../api";
+
 
 export default class DocService {
   async register(newDoc: Doc): Promise<Doc> {
     const user_id = sessionStorage.getItem("user_id")
-    const {nome, autor} = newDoc;
-    axios.post(
-        `http://${IP}:3333/users/${user_id}/doc`,
+    const {name, year, author} = newDoc;
+    const {data} = await api.post<Doc>(
+        `/users/${user_id}/doc`,
         {
-        nome: nome,
-        autor: autor,
+        name: name,
+        year: year,
+        author: author
+
       })
-      .then((response) => {
-        return response
-      }, (error) => {
-        throw new Error(error);
-      });
+
+      return data;
   }
 
 //   async fetchAllByAuthor(author: string): Promise<Doc[]> {
