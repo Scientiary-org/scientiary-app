@@ -1,42 +1,30 @@
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./styles.css"
 import SCI from "../../assets/SCI.svg"
 import MetaMask_Fox from "../../assets/MetaMask_Fox.svg"
-import { useState } from "react";
-import {ethers} from "ethers";
+import LoginUserService from "../../services/LoginUserService";
+import LoginUser from "../../use_cases/LoginUserUC";
 
 declare let window: any;
 
+const loginUser = new LoginUser(new LoginUserService());
+
 function MainPage() {
 
-	// const navigate = useNavigate();
-
-	const [currentAccount, setCurrentAccount] = useState('');
+	const navigate = useNavigate();
 
 	const connectWallet = async () => {
 		try {
-			const { ethereum } = window;
-
-			if (!ethereum) {
-				console.log("Metamask not detected");
-				return;
+			const loggeduser = await loginUser.execute(window);
+			if (loggeduser !== undefined) {
+				sessionStorage.setItem("user_id", loggeduser);
+				navigate("/home");
 			}
-
-			let chainId = await ethereum.request({ method: 'eth_chainId' });
-
-			const sepoliaChainId = '0xaa36a7'; // Sepolia network chain ID
-
-			if (chainId !== sepoliaChainId) {
-				alert("You are not connected to Sepolia network");
-				return;
-			}
-
-			const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-			setCurrentAccount(accounts[0]);
 
 		} catch (error) {
 			console.log("Error connecting to Metamask:", error);
 		}
+
 	}
 
     return (
@@ -49,6 +37,7 @@ function MainPage() {
 					<img className="meta-logo" src={MetaMask_Fox} alt="Meta Logo"/>
 					<button onClick={connectWallet} className="enter-button" >CONECTAR CARTEIRA</button>
 				</div>
+				
 			</div>
 			<div className="right-panel">
 				<h2>Como se cadastrar?</h2>
