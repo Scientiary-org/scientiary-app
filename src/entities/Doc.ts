@@ -1,7 +1,7 @@
 export interface Doc {
     _id?: string,
     name: string,
-    year: string,
+    year: number,
     author: string,
-    _ipfsHash?: string,
+    ipfsHash: string,
 }

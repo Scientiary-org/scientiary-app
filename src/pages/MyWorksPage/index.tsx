@@ -1,45 +1,79 @@
 import "./styles.css"
-import { useState } from "react";
-import {ethers} from "ethers";
-import { contractAddress } from "../../../public/config/config"
+import SCI from "../../assets/SCI.svg"
+import { useNavigate } from "react-router-dom";
+// import ComplexList from "../../components/Panel";
+import { useEffect, useState } from "react";
+import { Doc } from "../../entities/Doc";
+import { Create } from "../../use_cases/obras/Create";
+import DocService from "../../services/DocService";
 
-declare let window: any;
+var createDoc = new Create(new DocService)
 
-function MyWorksPage() {
+export default function MyWorksPage() {
 
-    const [workName,setWorkName] = useState('');
-    const [workAuthor,setWorkAuthor] = useState('');
-    const [workYear,setWorkYear] = useState('');
-    const [workIpfs,setWorkIpfs] = useState('');
+	const navigate = useNavigate();
+
+	const [workName, setWorkName] = useState('');
+    const [workAuthor, setWorkAuthor] = useState('');
+    const [workYear, setWorkYear] = useState('');
+    const [workIpfs, setWorkIpfs] = useState('');
+
+	useEffect(() => {
+
+		const user_id = sessionStorage.getItem("user_id")
+		if (!user_id){
+			navigate("/");
+		}
+	})
+
+	async function SendData() {
+		
+		const doc: Doc = {
+			'name':workName,
+			'year': parseInt(workYear),
+			'author':workAuthor,
+			'ipfsHash':workIpfs,
+		};
+
+		try {
+			await createDoc.execute(doc);
+		} catch (error: any) {
+
+	}}
 
 
-	const submitwork = async()=>{
-        let work = {
-          'name':workName,
-          'year':parseInt(workYear),
-          'author':workAuthor,
-          'ipfsHash':workIpfs,
-        };
-    
-        try{
-         const {ethereum} = window;
-         if(ethereum){
-           const provider = new ethers.providers.Web3Provider(ethereum);
-           const signer = provider.getSigner();
-           const LibraryContract = new ethers.Contract(contractAddress,Library.abi,signer);
-    
-           let libraryTx = await LibraryContract.addWork(work.name,work.year,work.author,work.ipfsHash);
-           console.log(libraryTx);
-         }else{
-           console.log("Ethreum object doesnt exist");
-         }
-        }catch(error){
-          console.log("Error submitting new work ",error);
-        }
-      }
-    
 
-    return ('')
-  }
-  
-export default MyWorksPage;
+	return (
+		<div className="ml-container">
+			<div className="ml-top-bar">
+				<img className="ml-sci-logo" src={SCI} alt="SCI Logo"/>
+				<h1>My Works</h1>
+				<div className="ml-buttons">
+					<button onClick={() => navigate("/home")} className="ml-home-button" >Home</button>
+					<button onClick={() => navigate("/")} className="ml-logout-button" >LogOut</button>
+				</div>
+			</div>
+			<div className="ml-body-screen">
+				<div className="ml-side-bar">
+					<h1>Categorias</h1>
+					<div className="ml-options">
+						<p>Título</p>
+						<p>Autor</p>
+						<p>Gênero</p>
+					</div>
+				</div>
+				<div className="ml-sci-main">
+					<div className="ml-search">
+						<h1>Pesquisa</h1>
+						<input
+							type="text"/>
+						<div className="ml-itens-list">
+							{/* <ComplexList data=list/> */}
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	)
+}
