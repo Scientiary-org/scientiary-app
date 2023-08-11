@@ -8,41 +8,61 @@
 }
 
 .top-bar {
-    flex: 1;
     display: flex;
     width: 100%;
     background-color: #5484FF;
-    justify-content: flex-start;
     align-items: center;
 
 }
 
-.logout-button {
+.top-bar h1 {
+    flex: 6;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 50px;
+    color: #EDEDED;
+    margin-right: 40px;
+    
+}
 
+.buttons {
+    flex: 1;
+}
+
+.logout-button {
     border-radius: 15px;
-    border-color: white;
+    border-color: transparent;
     border-width: 2px;
-    background-color: #5484FF;
+    background-color: #ff0000;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     color: white;
     font-weight: bold;
     font-size: 20px;
     flex: 3;
-    height: 40px;
-    margin-left: 700px;
+    height: 60px;
+}
+.my-works-button {
+    border-radius: 15px;
+    border-color: transparent;
+    border-width: 2px;
+    background-color: #0048ff;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    flex: 3;
+    height: 60px;
     margin-right: 10px;
 
+}
+
+.my-works-button:hover{
+    background-color: lightskyblue;
 }
 
 .logout-button:hover{
     background-color: lightskyblue;
 }
 
-.top-bar h1 {
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 60px;
-    color: #EDEDED;
-}
 
 .body-screen {
     flex: 1;
@@ -97,4 +117,9 @@
     text-align: left;
     text-indent: 10px;
     font-size: 20px;
+}
+
+.itens-list {
+    
+    flex-direction: row;
 }

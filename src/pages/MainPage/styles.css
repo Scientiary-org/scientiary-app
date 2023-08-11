@@ -64,6 +64,14 @@
     align-items: center;
 }
 
+.account-bar {
+    display: flex;
+    align-items: center;
+}
+.account-bar p {
+    font-size: 12px;
+}
+
 .meta-logo {
     flex: 2;
     height: 100px;

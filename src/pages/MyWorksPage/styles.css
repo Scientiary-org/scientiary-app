@@ -1,0 +1,133 @@
+.ml-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: auto;
+}
+
+.ml-top-bar {
+    display: flex;
+    width: 100%;
+    background-color: #5484FF;
+    align-items: center;
+    
+}
+
+.ml-sci-logo {
+    height: 180px;
+}
+
+.ml-top-bar h1 {
+    flex:7;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 50px;
+    color: #EDEDED;
+    margin-left: 40px;
+}
+
+.ml-buttons {
+    flex: 1;
+}
+
+.ml-logout-button {
+
+    border-radius: 15px;
+    border-color: transparent;
+    border-width: 2px;
+    background-color: #ff0000;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    flex: 3;
+    height: 60px;
+    margin-right: 10px;
+
+}
+
+.ml-home-button {
+    border-radius: 15px;
+    border-color: transparent;
+    border-width: 2px;
+    background-color: #0048ff;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    flex: 3;
+    height: 60px;
+    width: 80px;
+    margin-right: 10px;
+}
+
+
+.ml-home-button:hover{
+    background-color: lightskyblue;
+}
+
+.ml-logout-button:hover{
+    background-color: lightskyblue;
+}
+
+
+.ml-body-screen {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    width: 100%;
+    height: 100%;
+}
+
+.ml-side-bar {
+    flex: 1;
+    background-color: #EDEDED;
+    padding: 15px;
+}
+
+.ml-side-bar h1 {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 30px;
+    text-align: center;
+}
+
+.ml-options {
+    font-size: 20px;
+    margin-left: 10px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.ml-sci-main {
+    flex: 7;
+    background-color: white;
+    
+}
+
+.ml-search {
+    background-color: white;
+    margin-left: 40px;
+}
+
+.ml-search h1 {
+    size: 10px;
+    color: black;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.ml-search input {
+    background-color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    height: 30px;
+    width: 50%;
+    border-radius: 10px;
+    text-align: left;
+    text-indent: 10px;
+    font-size: 20px;
+}
+
+.ml-itens-list {
+    
+    flex-direction: row;
+}
