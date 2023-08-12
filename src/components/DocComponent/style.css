@@ -1,0 +1,25 @@
+.doc-container {
+    height: 170px;
+    width: 100%;
+    margin-right: 10px;
+    margin-left: 10px;
+    background-color: darkgray;
+    border-width: 10px;
+    border-radius: 15px;
+    border-color: rgb(0, 0, 0);
+    
+}
+
+.doc-content {
+    display: flex;
+    text-align: center;
+}
+
+.doc-image {
+    background-color: red;
+}
+
+.sci-logo {
+    height: 150px;
+}
+

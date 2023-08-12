@@ -1,42 +1,24 @@
 import "./styles.css"
 import SCI from "../../assets/SCI.svg"
 import { useNavigate } from "react-router-dom";
-import ComplexList from "../../components/Panel";
+import DocComponent from "../../components/DocComponent";
 import {useEffect, useState} from "react";
-import { Obra } from "../../entities/Doc";
+import { Doc } from "../../entities/Doc";
+import DocService from "../../services/DocService";
+import { FetchAll } from "../../use_cases/docs/FetchAll";
+
+const fetchAll = new FetchAll(new DocService());
 
 export default function HomePage() {
 
 	const navigate = useNavigate();
-
-	const [list, setList] = useState<Obra[]>();
-
-	
+	const [docList, setDocList] = useState<Doc[]>();
 
 	useEffect(() => {
-		async function fetchObras() {
-			const obras: Obra[] = [
-				{
-				  id: 'a',
-				  nome: 'Robin',
-				  autor: 'Wieruch',
-				},
-				{
-				  id: 'b',
-				  nome: 'Dave',
-				  autor: 'Davidds',
-				},
-				{
-				  id: 'c',
-				  nome: 'Dave',
-				  autor: 'Davidds',
-				},
-			];
+		fetchAll.execute().then((data) => {
+			setDocList(data);
 
-			setList(obras);
-		}
-		
-		fetchObras();
+		});
 
 		const user_id = sessionStorage.getItem("user_id")
 		if (!user_id){
@@ -68,10 +50,21 @@ export default function HomePage() {
 						<h1>Pesquisa</h1>
 						<input
 							type="text"/>
-						<div className="itens-list">
-							{ list === undefined ?
+						<div className="itens-field">
+							{ docList === undefined ?
 								<p>Carregando...</p>:
-								<ComplexList data={list}/>
+								<div className="itens-list">
+									<DocComponent data={docList[0]}/>
+									<DocComponent data={docList[1]}/>
+									<DocComponent data={docList[2]}/>
+									<DocComponent data={docList[0]}/>
+									<DocComponent data={docList[1]}/>
+									<DocComponent data={docList[2]}/>
+									<DocComponent data={docList[0]}/>
+									<DocComponent data={docList[1]}/>
+									<DocComponent data={docList[2]}/>
+									
+								</div>
 							}
 						</div>
 					</div>
