@@ -13,7 +13,6 @@ export default class DocService {
         year: year,
         author: author,
         ipfsHash: ipfsHash,
-
       })
 
       return data;

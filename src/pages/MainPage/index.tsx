@@ -20,6 +20,7 @@ function MainPage() {
 				sessionStorage.setItem("user_id", loggeduser);
 				navigate("/home");
 			}
+            
 
 		} catch (error) {
 			console.log("Error connecting to Metamask:", error);
