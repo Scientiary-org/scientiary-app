@@ -5,9 +5,6 @@ export class Create {
   constructor(private readonly itemService: DocService) {}
 
   async execute(newDoc: Doc) {
-    
-    return this.itemService.register(
-      newDoc
-    );
+    return this.itemService.create(newDoc);
   }
 }

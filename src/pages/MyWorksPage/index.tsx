@@ -4,10 +4,11 @@ import { useNavigate } from "react-router-dom";
 // import ComplexList from "../../components/Panel";
 import { useEffect, useState } from "react";
 import { Doc } from "../../entities/Doc";
-import { Create } from "../../use_cases/obras/Create";
+import { Create } from "../../use_cases/docs/Create";
 import DocService from "../../services/DocService";
 
-var createDoc = new Create(new DocService)
+const createDoc = new Create(new DocService())
+
 
 export default function MyWorksPage() {
 
@@ -18,8 +19,8 @@ export default function MyWorksPage() {
     const [workYear, setWorkYear] = useState('');
     const [workIpfs, setWorkIpfs] = useState('');
 
-	useEffect(() => {
 
+	useEffect(() => {
 		const user_id = sessionStorage.getItem("user_id")
 		if (!user_id){
 			navigate("/");
@@ -40,7 +41,6 @@ export default function MyWorksPage() {
 		} catch (error: any) {
 
 	}}
-
 
 
 	return (

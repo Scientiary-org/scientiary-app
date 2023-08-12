@@ -2,8 +2,8 @@ import { useNavigate } from "react-router-dom";
 import "./styles.css"
 import SCI from "../../assets/SCI.svg"
 import MetaMask_Fox from "../../assets/MetaMask_Fox.svg"
-import LoginUserService from "../../services/LoginUserService";
-import LoginUser from "../../use_cases/LoginUserUC";
+import LoginUserService from "../../services/UserService";
+import LoginUser from "../../use_cases/users/Login";
 
 declare let window: any;
 
