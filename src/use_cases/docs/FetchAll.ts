@@ -1,9 +1,9 @@
 import DocService from "../../services/DocService";
 
 export class FetchAll {
-  constructor(private readonly itemService: DocService) {}
+  constructor(private readonly docService: DocService) {}
 
-  async execute() {
-    return this.itemService.fetchAll();
+  async execute(window: any) {
+    return this.docService.fetchAll(window);
   }
 }
