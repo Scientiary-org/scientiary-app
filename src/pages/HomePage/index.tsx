@@ -6,6 +6,12 @@ import {useEffect, useState} from "react";
 import { Doc } from "../../entities/Doc";
 import DocService from "../../services/DocService";
 import { FetchAll } from "../../use_cases/docs/FetchAll";
+import { ToggleButton, ToggleButtonGroup } from "@mui/material";
+import React from "react";
+
+
+
+declare let window: any;
 
 const fetchAll = new FetchAll(new DocService());
 
@@ -13,11 +19,13 @@ export default function HomePage() {
 
 	const navigate = useNavigate();
 	const [docList, setDocList] = useState<Doc[]>();
+	const [searchString, setSearchString] = useState<string>()
+	// const [filteredItems, setFilteredData] = useState<Doc[]>(docList);
+	const [view, setView] = React.useState('name');
 
 	useEffect(() => {
-		fetchAll.execute().then((data) => {
+		fetchAll.execute(window).then((data) => {
 			setDocList(data);
-
 		});
 
 		const user_id = sessionStorage.getItem("user_id")
@@ -25,6 +33,22 @@ export default function HomePage() {
 			navigate("/");
 		}
 	})
+
+	// const handleSearch = (text: string) => {
+    //     setSearchString(text);
+	// 	if (docList !== undefined) {
+	// 		const filteredData = docList.filter((doc) => {
+	// 		const docName = doc.name.toLowerCase();
+	// 		const searchTextLower = text.toLowerCase();
+	// 		return docName.includes(searchTextLower);
+	// 		setFilteredData(filteredData)
+    //     });
+	// 	}
+    // };
+
+	const handleChange = (event: React.MouseEvent<HTMLElement>, nextView: string) => {
+		setView(nextView);
+	  };
 
 	return (
 		<div className="container">
@@ -38,32 +62,41 @@ export default function HomePage() {
 			</div>
 			<div className="body-screen">
 				<div className="side-bar">
-					<h1>Categorias</h1>
+					<h1>Filtro de Pesquisa</h1>
 					<div className="options">
-						<p>Título</p>
-						<p>Autor</p>
-						<p>Gênero</p>
-					</div>
+						<ToggleButtonGroup
+							orientation="vertical"
+							value={view}
+							exclusive={true}
+							onChange={handleChange}
+						>
+							<ToggleButton value="name" aria-label="name">
+								<p>Nome</p>
+							</ToggleButton>
+							<ToggleButton value="author" aria-label="author">
+								<p>Autor</p>
+							</ToggleButton>
+							<ToggleButton value="year" aria-label="year">
+								<p>Ano</p>
+							</ToggleButton>
+							
+						</ToggleButtonGroup>
+					</div> 
 				</div>
 				<div className="sci-main">
 					<div className="search">
 						<h1>Pesquisa</h1>
 						<input
-							type="text"/>
+							type="text"
+							value={searchString}/>
 						<div className="itens-field">
 							{ docList === undefined ?
 								<p>Carregando...</p>:
 								<div className="itens-list">
-									<DocComponent data={docList[0]}/>
-									<DocComponent data={docList[1]}/>
-									<DocComponent data={docList[2]}/>
-									<DocComponent data={docList[0]}/>
-									<DocComponent data={docList[1]}/>
-									<DocComponent data={docList[2]}/>
-									<DocComponent data={docList[0]}/>
-									<DocComponent data={docList[1]}/>
-									<DocComponent data={docList[2]}/>
-									
+									{docList.map((doc) =>
+										<DocComponent data={doc} capa={doc.image}/>
+									)	
+									}
 								</div>
 							}
 						</div>
