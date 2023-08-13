@@ -37,7 +37,7 @@ export default function MyWorksPage() {
 		};
 
 		try {
-			await createDoc.execute(doc);
+			await createDoc.execute(doc, window);
 		} catch (error: any) {
 
 	}}
