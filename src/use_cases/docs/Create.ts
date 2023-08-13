@@ -4,7 +4,7 @@ import DocService from "../../services/DocService";
 export class Create {
   constructor(private readonly itemService: DocService) {}
 
-  async execute(newDoc: Doc) {
-    return this.itemService.create(newDoc);
+  async execute(newDoc: Doc, window: any) {
+    return this.itemService.create(newDoc, window);
   }
 }

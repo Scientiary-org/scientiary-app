@@ -16,6 +16,7 @@ function MainPage() {
 	const connectWallet = async () => {
 		try {
 			const loggeduser = await loginUser.execute(window);
+
 			if (loggeduser !== undefined) {
 				sessionStorage.setItem("user_id", loggeduser);
 				navigate("/home");
