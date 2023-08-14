@@ -4,5 +4,4 @@ export interface Doc {
     year: number,
     author: string,
     ipfsHash: string,
-    image: string,
 }

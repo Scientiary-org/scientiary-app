@@ -14,10 +14,10 @@ export default class UserService {
 
 			const chainId = await ethereum.request({ method: 'eth_chainId' });
 			
-			const sepoliaChainId = '0xaa36a7'; // Sepolia network chain ID
+			const goerliChainId = '0x5'; // Sepolia network chain ID
 			
-			if (chainId !== sepoliaChainId) {
-				alert("You are not connected to Sepolia network");
+			if (chainId !== goerliChainId) {
+				alert("You are not connected to Goerli network");
 				return;
 			}
 			
