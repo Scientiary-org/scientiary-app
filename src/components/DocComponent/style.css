@@ -67,4 +67,8 @@
     margin-right: 30px;
 }
 
+.buy-button:hover {
+    background-color: lightskyblue;
+}
+
 

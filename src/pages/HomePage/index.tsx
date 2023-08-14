@@ -20,35 +20,62 @@ export default function HomePage() {
 	const navigate = useNavigate();
 	const [docList, setDocList] = useState<Doc[]>();
 	const [searchString, setSearchString] = useState<string>()
-	// const [filteredItems, setFilteredData] = useState<Doc[]>(docList);
+	const [filteredItems, setFilteredData] = useState<Doc[]>();
 	const [view, setView] = React.useState('name');
 
 	useEffect(() => {
 		fetchAll.execute(window).then((data) => {
 			setDocList(data);
+			setFilteredData(data);
 		});
 
 		const user_id = sessionStorage.getItem("user_id")
 		if (!user_id){
+			console.log("Teste")
 			navigate("/");
 		}
-	})
+	}, [])
 
-	// const handleSearch = (text: string) => {
-    //     setSearchString(text);
-	// 	if (docList !== undefined) {
-	// 		const filteredData = docList.filter((doc) => {
-	// 		const docName = doc.name.toLowerCase();
-	// 		const searchTextLower = text.toLowerCase();
-	// 		return docName.includes(searchTextLower);
-	// 		setFilteredData(filteredData)
-    //     });
-	// 	}
-    // };
+	const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+		if (!docList) return;
+
+		const { target } = event
+		const {value: text} = target
+
+        setSearchString(text);
+
+		if(view === 'name'){
+			const filteredData = docList.filter((doc) => {
+				const docName = doc.name.toLowerCase();
+				const searchTextLower = text.toLowerCase();
+				return docName.includes(searchTextLower);
+			})
+			setFilteredData(filteredData);
+		}
+
+		if(view === 'author'){
+			const filteredData = docList.filter((doc) => {
+				const docName = doc.author.toLowerCase();
+				const searchTextLower = text.toLowerCase();
+				return docName.includes(searchTextLower);
+			})
+			setFilteredData(filteredData);
+		}
+
+		if(view === 'year'){
+			const filteredData = docList.filter((doc) => {
+				const docName = doc.year.toString().toLowerCase();
+				const searchTextLower = text.toLowerCase();
+				return docName.includes(searchTextLower);
+			})
+			setFilteredData(filteredData);
+		}
+	}
 
 	const handleChange = (event: React.MouseEvent<HTMLElement>, nextView: string) => {
 		setView(nextView);
-	  };
+	};
+	
 
 	return (
 		<div className="container">
@@ -88,12 +115,13 @@ export default function HomePage() {
 						<h1>Pesquisa</h1>
 						<input
 							type="text"
-							value={searchString}/>
+							value={searchString}
+							onChange={handleSearch}/>
 						<div className="itens-field">
-							{ docList === undefined ?
+							{ filteredItems === undefined ?
 								<p>Carregando...</p>:
 								<div className="itens-list">
-									{docList.map((doc) =>
+									{filteredItems.map((doc) =>
 										<DocComponent data={doc} capa={doc.image}/>
 									)	
 									}

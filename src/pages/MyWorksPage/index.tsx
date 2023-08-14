@@ -14,10 +14,10 @@ export default function MyWorksPage() {
 
 	const navigate = useNavigate();
 
-	const [workName, setWorkName] = useState('');
-    const [workAuthor, setWorkAuthor] = useState('');
-    const [workYear, setWorkYear] = useState('');
-    const [workIpfs, setWorkIpfs] = useState('');
+	// const [workName, setWorkName] = useState('');
+    // const [workAuthor, setWorkAuthor] = useState('');
+    // const [workYear, setWorkYear] = useState('');
+    // const [workIpfs, setWorkIpfs] = useState('');
 
 
 	useEffect(() => {
@@ -27,20 +27,20 @@ export default function MyWorksPage() {
 		}
 	})
 
-	async function SendData() {
+	// async function SendData() {
 		
-		const doc: Doc = {
-			'name':workName,
-			'year': parseInt(workYear),
-			'author':workAuthor,
-			'ipfsHash':workIpfs,
-		};
+	// 	const doc: Doc = {
+	// 		'name':workName,
+	// 		'year': parseInt(workYear),
+	// 		'author':workAuthor,
+	// 		'ipfsHash':workIpfs,
+	// 	};
 
-		try {
-			await createDoc.execute(doc, window);
-		} catch (error: any) {
+	// 	try {
+	// 		await createDoc.execute(doc, window);
+	// 	} catch (error: any) {
 
-	}}
+	// }}
 
 
 	return (

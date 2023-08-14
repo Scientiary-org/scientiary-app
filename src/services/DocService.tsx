@@ -35,7 +35,7 @@ export default class DocService {
   // }
 
   async fetchAll(window: any): Promise<Doc[]> {
-    console.log(window)
+    // console.log(window)
 
     const docs: Doc[] = [
       {
