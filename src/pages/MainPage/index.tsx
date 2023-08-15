@@ -8,6 +8,7 @@ import LoginUser from "../../use_cases/users/Login";
 declare let window: any;
 
 const loginUser = new LoginUser(new LoginUserService());
+export var loggeduser: any;
 
 function MainPage() {
 
@@ -15,7 +16,7 @@ function MainPage() {
 
 	const connectWallet = async () => {
 		try {
-			const loggeduser = await loginUser.execute(window);
+			loggeduser = await loginUser.execute(window);
 
 			if (loggeduser !== undefined) {
 				sessionStorage.setItem("user_id", loggeduser);

@@ -24,6 +24,7 @@ export default class UserService {
 			const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
 
 			console.log(window);
+			console.log(accounts[0])
 			return accounts[0];
 
 		} catch (error) {

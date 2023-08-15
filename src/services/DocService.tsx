@@ -39,12 +39,11 @@ export default class DocService {
     const signer = await provider.getSigner();
     const LibraryContract = new ethers.Contract(contractAddress,Library.abi,signer);
     let worksByUser = await LibraryContract.getWorksByAddress(userId);
-    console.log(worksByUser);
   
     return worksByUser;
   }
   
-  async delete(workId: string, window: any): Promise<void> {
+  async delete(workId: number, window: any): Promise<void> {
     const {ethereum} = window;
     if(!ethereum) throw new Error("Ethreum object doesnt exist.");
     const provider = new ethers.BrowserProvider(ethereum);
