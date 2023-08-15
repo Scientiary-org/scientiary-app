@@ -89,7 +89,7 @@ export default function HomePage() {
 			</div>
 			<div className="body-screen">
 				<div className="side-bar">
-					<h1>Filtro de Pesquisa</h1>
+					<h1>Search Filter</h1>
 					<div className="options">
 						<ToggleButtonGroup
 							orientation="vertical"
@@ -98,13 +98,13 @@ export default function HomePage() {
 							onChange={handleChange}
 						>
 							<ToggleButton value="name" aria-label="name">
-								<p>Nome</p>
+								<p>Name</p>
 							</ToggleButton>
 							<ToggleButton value="author" aria-label="author">
-								<p>Autor</p>
+								<p>Author</p>
 							</ToggleButton>
 							<ToggleButton value="year" aria-label="year">
-								<p>Ano</p>
+								<p>Year</p>
 							</ToggleButton>
 							
 						</ToggleButtonGroup>
@@ -112,18 +112,19 @@ export default function HomePage() {
 				</div>
 				<div className="sci-main">
 					<div className="search">
-						<h1>Pesquisa</h1>
 						<input
 							type="text"
 							value={searchString}
-							onChange={handleSearch}/>
+							onChange={handleSearch}
+							placeholder="Search"
+							/>
 						<div className="itens-field">
 							{ filteredItems === undefined ?
 								<p>Carregando...</p>:
 								<div className="itens-list">
 									{filteredItems.map((doc) =>
 										<DocComponent data={doc} capa={doc.image}/>
-									)	
+										)	
 									}
 								</div>
 							}

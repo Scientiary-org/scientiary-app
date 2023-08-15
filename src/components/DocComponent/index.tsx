@@ -21,8 +21,8 @@ const DocComponent: React.FC<Props> = ({data, capa}) => {
                         <h4>{data.name}</h4>
                     </div >
                     <div className="info-desc">
-                        <h5 className="author">Autor: {data.author}</h5>
-                        <h5 className="year">Ano: {data.year}</h5>
+                        <h5 className="author">Author: {data.author}</h5>
+                        <h5 className="year">Year: {data.year}</h5>
                         <button onClick={() => navigate("/mylib")} className="buy-button" >ADQUIRIR OBRA</button>
                     </div >
                 </div>

@@ -58,7 +58,29 @@ export default class DocService {
         author: "George R. R. Martin",
         ipfsHash: "1234",
         image: Capa3,
-      }
+      },
+      {
+        name: "As Crônicas de Gelo e Fogo - A Guerra dos Tronos",
+        year: 1912,
+        author: "George R. R. Martin",
+        ipfsHash: "1234",
+        image: Capa1,
+      },
+      {
+        name: "As Crônicas de Gelo e Fogo - A Fúria dos Reis",
+        year: 1912,
+        author: "George R. R. Martin",
+        ipfsHash: "1234",
+        image: Capa2,
+      },
+      {
+        name: "As Crônicas de Gelo e Fogo - A Tormenta de Espadas",
+        year: 1912,
+        author: "George R. R. Martin",
+        ipfsHash: "1234",
+        image: Capa3,
+      },
+       
     ]
     return docs;
   }
