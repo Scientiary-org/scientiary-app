@@ -1,10 +1,13 @@
+#root, html, body{
+    margin: 0;
+    padding: 0;
+}
+
 .ml-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    overflow: auto;
+    overflow-y: auto;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 .ml-top-bar {
@@ -73,18 +76,18 @@
 
 
 .ml-body-screen {
-    flex: 1;
     display: flex;
     flex-direction: row;
-    background-color: white;
     width: 100%;
     height: 100%;
+    min-height: 90vh;
 }
 
 .ml-side-bar {
     flex: 1;
     background-color: #EDEDED;
-    padding: 15px;
+    padding: 30px;
+    
 }
 
 .ml-side-bar h1 {
@@ -99,28 +102,72 @@
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+.ml-upload-input {
+    display: grid;
+    align-items: center;
+    height: 100%;
+}
+
+.ml-upload-input p {
+    grid-column: 1;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin-right: 20px;
+    font-weight: bold;
+}
+
+.ml-upload-input input {
+    grid-column: 2;
+    width: 300px;
+    height: 30px;
+    border-radius: 5px;
+    border-color: transparent;
+    font-size: 20px;
+}
+
+.ml-file {
+    display: grid;
+}
+
+.ml-file input {
+    margin-top: 20px;
+    height: 40px;
+    grid-row: 1;
+
+}
+
+.ml-file button {
+    border-radius: 15px;
+    border-color: transparent;
+    border-width: 2px;
+    background-color: #0048ff;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    height: 60px;
+    width: 100%;
+    margin-top: 20px;
+
+}
+
+.ml-file button:hover {
+    background-color: lightskyblue;
+}
+
 .ml-sci-main {
     flex: 7;
-    background-color: white;
-    
 }
 
 .ml-search {
-    background-color: white;
     margin-left: 40px;
-}
-
-.ml-search h1 {
-    size: 10px;
-    color: black;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin-top: 40px;
 }
 
 .ml-search input {
     background-color: white;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     height: 30px;
-    width: 50%;
+    width: 60%;
     border-radius: 10px;
     text-align: left;
     text-indent: 10px;

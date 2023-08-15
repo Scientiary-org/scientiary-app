@@ -1,10 +1,13 @@
+#root, html, body{
+    margin: 0;
+    padding: 0;
+}
+
 .container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    overflow: auto;
+    overflow-y: auto;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 .top-bar {
@@ -65,19 +68,18 @@
 
 
 .body-screen {
-    flex: 1;
+    background-color: white;
     display: flex;
     flex-direction: row;
-    background-color: white;
     width: 100%;
     height: 100%;
+    min-height: 90vh;
 }
 
 .side-bar {
     flex: 1;
     background-color: #EDEDED;
     padding: 15px;
-    height: 100%;
 }
 
 .side-bar h1 {
@@ -93,37 +95,15 @@
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-.filter {
-    border-radius: 15px;
-    border-color: transparent;
-    border-width: 2px;
-    background-color: #9a9a9a;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    color: black;
-    font-weight: bold;
-    font-size: 20px;
-    flex: 3;
-    height: 60px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-}
-
-.filter:hover{
-    background-color: lightskyblue;
-}
-
-
-
-
 .sci-main {
     flex: 7;
-    background-color: white;
-    
+    height: 100%;
 }
 
 .search {
-    background-color: white;
     margin-left: 40px;
+    margin-top: 40px;
+    height: 100%;
 }
 
 .search h1 {
@@ -136,7 +116,7 @@
     background-color: white;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     height: 30px;
-    width: 50%;
+    width: 60%;
     border-radius: 10px;
     text-align: left;
     text-indent: 10px;
@@ -150,6 +130,6 @@
 
 .itens-list {
     justify-content: center;
-
-
+    display: flex;
+    flex-direction: column;
 }

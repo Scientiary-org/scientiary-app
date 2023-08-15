@@ -20,35 +20,62 @@ export default function HomePage() {
 	const navigate = useNavigate();
 	const [docList, setDocList] = useState<Doc[]>();
 	const [searchString, setSearchString] = useState<string>()
-	// const [filteredItems, setFilteredData] = useState<Doc[]>(docList);
+	const [filteredItems, setFilteredData] = useState<Doc[]>();
 	const [view, setView] = React.useState('name');
 
 	useEffect(() => {
 		fetchAll.execute(window).then((data) => {
 			setDocList(data);
+			setFilteredData(data);
 		});
 
 		const user_id = sessionStorage.getItem("user_id")
 		if (!user_id){
+			console.log("Teste")
 			navigate("/");
 		}
-	})
+	}, [])
 
-	// const handleSearch = (text: string) => {
-    //     setSearchString(text);
-	// 	if (docList !== undefined) {
-	// 		const filteredData = docList.filter((doc) => {
-	// 		const docName = doc.name.toLowerCase();
-	// 		const searchTextLower = text.toLowerCase();
-	// 		return docName.includes(searchTextLower);
-	// 		setFilteredData(filteredData)
-    //     });
-	// 	}
-    // };
+	const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+		if (!docList) return;
+
+		const { target } = event
+		const {value: text} = target
+
+        setSearchString(text);
+
+		if(view === 'name'){
+			const filteredData = docList.filter((doc) => {
+				const docName = doc.name.toLowerCase();
+				const searchTextLower = text.toLowerCase();
+				return docName.includes(searchTextLower);
+			})
+			setFilteredData(filteredData);
+		}
+
+		if(view === 'author'){
+			const filteredData = docList.filter((doc) => {
+				const docName = doc.author.toLowerCase();
+				const searchTextLower = text.toLowerCase();
+				return docName.includes(searchTextLower);
+			})
+			setFilteredData(filteredData);
+		}
+
+		if(view === 'year'){
+			const filteredData = docList.filter((doc) => {
+				const docName = doc.year.toString().toLowerCase();
+				const searchTextLower = text.toLowerCase();
+				return docName.includes(searchTextLower);
+			})
+			setFilteredData(filteredData);
+		}
+	}
 
 	const handleChange = (event: React.MouseEvent<HTMLElement>, nextView: string) => {
 		setView(nextView);
-	  };
+	};
+	
 
 	return (
 		<div className="container">
@@ -62,7 +89,7 @@ export default function HomePage() {
 			</div>
 			<div className="body-screen">
 				<div className="side-bar">
-					<h1>Filtro de Pesquisa</h1>
+					<h1>Search Filter</h1>
 					<div className="options">
 						<ToggleButtonGroup
 							orientation="vertical"
@@ -71,13 +98,13 @@ export default function HomePage() {
 							onChange={handleChange}
 						>
 							<ToggleButton value="name" aria-label="name">
-								<p>Nome</p>
+								<p>Name</p>
 							</ToggleButton>
 							<ToggleButton value="author" aria-label="author">
-								<p>Autor</p>
+								<p>Author</p>
 							</ToggleButton>
 							<ToggleButton value="year" aria-label="year">
-								<p>Ano</p>
+								<p>Year</p>
 							</ToggleButton>
 							
 						</ToggleButtonGroup>
@@ -85,17 +112,19 @@ export default function HomePage() {
 				</div>
 				<div className="sci-main">
 					<div className="search">
-						<h1>Pesquisa</h1>
 						<input
 							type="text"
-							value={searchString}/>
+							value={searchString}
+							onChange={handleSearch}
+							placeholder="Search"
+							/>
 						<div className="itens-field">
-							{ docList === undefined ?
+							{ filteredItems === undefined ?
 								<p>Carregando...</p>:
 								<div className="itens-list">
-									{docList.map((doc) =>
+									{filteredItems.map((doc) =>
 										<DocComponent data={doc} capa={doc.image}/>
-									)	
+										)	
 									}
 								</div>
 							}
