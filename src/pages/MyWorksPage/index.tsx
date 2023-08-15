@@ -6,16 +6,26 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { Doc } from "../../entities/Doc";
 import { Create } from "../../use_cases/docs/Create";
 import DocService from "../../services/DocService";
+import DocComponent from "../../components/DocComponent";
 
 const createDoc = new Create(new DocService())
 
 
 export default function MyWorksPage() {
 
+	const navigate = useNavigate();
 	const [workName, setWorkName] = useState('');
 	const [workAuthor, setWorkAuthor] = useState('');
 	const [workIpfs, setWorkIpfs] = useState('');
+	const [docList, setDocList] = useState<Doc[]>();
 	const [file, setFile] = useState<File>();
+	
+	useEffect(() => {
+		const user_id = sessionStorage.getItem("user_id")
+		if (!user_id){
+			navigate("/");
+		}
+	})
 
 	const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files) {
@@ -23,16 +33,8 @@ export default function MyWorksPage() {
 		}
 	};
 
-	const navigate = useNavigate();
 
 
-
-	useEffect(() => {
-		const user_id = sessionStorage.getItem("user_id")
-		if (!user_id){
-			navigate("/");
-		}
-	})
 
 	async function SendData() {
 		
@@ -90,8 +92,17 @@ export default function MyWorksPage() {
 						<input
 							type="text"
 							placeholder="Search"/>
-						<div className="ml-itens-list">
-							{/* <ComplexList data=list/> */}
+						<div className="ml-itens-field">
+							{ docList === undefined ?
+								<p>Carregando...</p>:
+								<div className="ml-itens-list">
+									{docList.map((doc) =>
+										<DocComponent data={doc} capa={doc.image}/>
+										)	
+									}
+
+								</div>
+							}
 						</div>
 					</div>
 				</div>

@@ -1,15 +1,16 @@
 import "./styles.css"
-import SCI from "../../assets/SCI.svg"
+import SCI from "../../assets/SCI.svg";
 import { useNavigate } from "react-router-dom";
 import DocComponent from "../../components/DocComponent";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import { Doc } from "../../entities/Doc";
 import DocService from "../../services/DocService";
 import { FetchAll } from "../../use_cases/docs/FetchAll";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import React from "react";
 
-
+import {toPng} from 'html-to-image';
+import ePub from 'epubjs';
 
 declare let window: any;
 
@@ -19,9 +20,11 @@ export default function HomePage() {
 
 	const navigate = useNavigate();
 	const [docList, setDocList] = useState<Doc[]>();
-	const [searchString, setSearchString] = useState<string>()
+	const [searchString, setSearchString] = useState<string>();
 	const [filteredItems, setFilteredData] = useState<Doc[]>();
 	const [view, setView] = React.useState('name');
+
+	const [imageDataUrl, setImageDataUrl] = useState<string | undefined>(undefined);
 
 	useEffect(() => {
 		fetchAll.execute(window).then((data) => {
@@ -34,7 +37,27 @@ export default function HomePage() {
 			console.log("Teste")
 			navigate("/");
 		}
-	}, [])
+	});
+
+	// const loadEpub = async () => {
+	// 	const book = ePub("../../assets/the_little.epub");
+	// 	if(book) {
+	// 		try {
+	// 			const firstPage = await book.spine.get(0).render()
+	// 			const container = document.createElement('div');
+	// 			container.innerHTML = firstPage;
+	// 			console.log(container);
+
+	// 			// const dataUrl = await toPng(container);
+	// 			// setImageDataUrl(dataUrl);
+	// 		} catch (error) {
+	// 			console.error('Error converting to image:', error);
+	// 		}
+	// 	}
+	// };
+  
+	// loadEpub();
+
 
 	const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
 		if (!docList) return;
@@ -122,6 +145,9 @@ export default function HomePage() {
 							{ filteredItems === undefined ?
 								<p>Carregando...</p>:
 								<div className="itens-list">
+									<div>
+										{imageDataUrl ? <img src={imageDataUrl} alt="Epub Page" /> : <p>Loading...</p>}
+									</div>
 									{filteredItems.map((doc) =>
 										<DocComponent data={doc} capa={doc.image}/>
 										)	
