@@ -1,6 +1,6 @@
 import DocService from "../../services/DocService";
 
-export class FindAllByUser {
+export class FetchAllByUser {
   constructor(private readonly docService: DocService) {}
 
   async execute(user_id: string, window: any) {

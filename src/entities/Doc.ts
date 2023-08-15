@@ -1,5 +1,5 @@
 export interface Doc {
-    _id?: string,
+    _id?: number,
     name: string,
     year: number,
     author: string,
