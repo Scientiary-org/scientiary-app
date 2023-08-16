@@ -39,25 +39,6 @@ export default function HomePage() {
 		}
 	});
 
-	// const loadEpub = async () => {
-	// 	const book = ePub("../../assets/the_little.epub");
-	// 	if(book) {
-	// 		try {
-	// 			const firstPage = await book.spine.get(0).render()
-	// 			const container = document.createElement('div');
-	// 			container.innerHTML = firstPage;
-	// 			console.log(container);
-
-	// 			// const dataUrl = await toPng(container);
-	// 			// setImageDataUrl(dataUrl);
-	// 		} catch (error) {
-	// 			console.error('Error converting to image:', error);
-	// 		}
-	// 	}
-	// };
-  
-	// loadEpub();
-
 
 	const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
 		if (!docList) return;
@@ -145,11 +126,10 @@ export default function HomePage() {
 							{ filteredItems === undefined ?
 								<p>Carregando...</p>:
 								<div className="itens-list">
-									<div>
-										{imageDataUrl ? <img src={imageDataUrl} alt="Epub Page" /> : <p>Loading...</p>}
-									</div>
 									{filteredItems.map((doc) =>
-										<DocComponent data={doc} capa={doc.image}/>
+										<DocComponent 
+											data={doc}
+											/>
 										)	
 									}
 								</div>

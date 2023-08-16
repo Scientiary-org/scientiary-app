@@ -3,14 +3,15 @@ import React from 'react';
 import { Doc } from '../../entities/Doc';
 import "./style.css"
 import { useNavigate } from 'react-router-dom';
+import capa from "../../assets/Default.svg";
 
 
 interface Props {
     data: Doc
-    capa: string
+    // capa: string
 }
 
-const DocComponent: React.FC<Props> = ({data, capa}) => {
+const DocComponent: React.FC<Props> = ({data}) => {
     
     const navigate = useNavigate();
     return (
@@ -22,9 +23,9 @@ const DocComponent: React.FC<Props> = ({data, capa}) => {
                     </div >
                     <div className="info-desc">
                         <h5 className="author">Author: {data.author}</h5>
-                        <h5 className="year">Year: {data.year}</h5>
+                        <h5 className="year">Year: {Number(data.year)}</h5>
                         <button onClick={() => navigate("/mylib")} className="buy-button" >ADQUIRIR OBRA</button>
-                    </div >
+                    </div>
                 </div>
         </div>
 

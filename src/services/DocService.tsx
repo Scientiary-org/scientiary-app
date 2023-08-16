@@ -12,33 +12,31 @@ export default class DocService {
     const signer = await provider.getSigner(); 
     const LibraryContract = new ethers.Contract(contractAddress,Library.abi,signer);
     let libraryTx = await LibraryContract.addWork(newDoc.name, newDoc.year, newDoc.author, newDoc.ipfsHash);
-    console.log(libraryTx);
   
   return libraryTx;
   }
   
-    async fetchAll(window: any): Promise<Doc[] | undefined> {
+  async fetchAll(window: any): Promise<Doc[] | undefined> {
 
-      const {ethereum} = window;
-      if(!ethereum) throw new Error("Ethreum object doesnt exist.");
-      const provider = new ethers.BrowserProvider(ethereum);
-      const signer = await provider.getSigner();
-      const LibraryContract = new ethers.Contract(contractAddress,Library.abi,signer);
-      let works = await LibraryContract.getWorkList();
-      console.log(works);
-      
-      return works;
-      }
-
-
-  
-  async findByUser(userId: string, window: any): Promise<Doc[] | undefined> {
     const {ethereum} = window;
     if(!ethereum) throw new Error("Ethreum object doesnt exist.");
     const provider = new ethers.BrowserProvider(ethereum);
     const signer = await provider.getSigner();
     const LibraryContract = new ethers.Contract(contractAddress,Library.abi,signer);
-    let worksByUser = await LibraryContract.getWorksByAddress(userId);
+    let works = await LibraryContract.getWorkList();
+    
+    return works;
+    }
+
+
+  
+  async fetchAllByUser(userId: string, window: any): Promise<Doc[] | undefined> {
+    const {ethereum} = window;
+    if(!ethereum) throw new Error("Ethreum object doesnt exist.");
+    const provider = new ethers.BrowserProvider(ethereum);
+    const signer = await provider.getSigner();
+    const LibraryContract = new ethers.Contract(contractAddress,Library.abi,signer);
+    const worksByUser = await LibraryContract.getWorksByAddress(userId);
   
     return worksByUser;
   }
