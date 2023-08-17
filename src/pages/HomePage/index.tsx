@@ -18,6 +18,7 @@ const fetchAll = new FetchAll(new DocService());
 
 export default function HomePage() {
 
+	console.log(fetchAll.execute(window));
 	const navigate = useNavigate();
 	const [docList, setDocList] = useState<Doc[]>();
 	const [searchString, setSearchString] = useState<string>();
@@ -85,7 +86,7 @@ export default function HomePage() {
 		<div className="container">
 			<div className="top-bar">
 				<img className="sci-logo" src={SCI} alt="SCI Logo"/>
-				<h1>Wellcome to Scientiary</h1>
+				<h1>Welcome to Scientiary</h1>
 				<div className="buttons">
 					<button onClick={() => navigate("/mylib")} className="my-works-button" >My Works</button>
 					<button onClick={() => navigate("/")} className="logout-button" >LogOut</button>
@@ -126,9 +127,10 @@ export default function HomePage() {
 							{ filteredItems === undefined ?
 								<p>Carregando...</p>:
 								<div className="itens-list">
-									{filteredItems.map((doc) =>
+									{filteredItems.map((doc, index) =>
 										<DocComponent 
 											data={doc}
+											key={index}
 											/>
 										)	
 									}

@@ -24,7 +24,7 @@ export default class DocService {
     const signer = await provider.getSigner();
     const LibraryContract = new ethers.Contract(contractAddress,Library.abi,signer);
     let works = await LibraryContract.getWorkList();
-    
+
     return works;
     }
 
@@ -37,6 +37,7 @@ export default class DocService {
     const signer = await provider.getSigner();
     const LibraryContract = new ethers.Contract(contractAddress,Library.abi,signer);
     const worksByUser = await LibraryContract.getWorksByAddress(userId);
+    console.log(worksByUser)
   
     return worksByUser;
   }

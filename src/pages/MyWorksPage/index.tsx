@@ -10,16 +10,21 @@ import IPFSService from "../../services/IPFSService";
 import { Delete } from "../../use_cases/docs/Delete";
 import { FetchAllByUser } from "../../use_cases/docs/FetchAllByUser";
 import MyDocComponent from "../../components/MyDocComponent";
-
+import React from "react";
+import Moralis from "moralis";
 
 const createDoc = new Create(new DocService());
 const uploadIpfs = new Upload(new IPFSService());
 const deleteDoc = new Delete(new DocService());
 const fetchAllByUser = new FetchAllByUser(new DocService());
+await Moralis.start({
+	apiKey: import.meta.env.VITE_MORALIS_KEY,
+});
 
 export default function MyWorksPage() {
 	const navigate = useNavigate();
-
+    
+	const [workIds, setWorkIds] = useState<number[]>([])
 	const [workName, setWorkName] = useState('');
 	const [workAuthor, setWorkAuthor] = useState('');
 	const [workIpfs, setWorkIpfs] = useState('');
@@ -55,20 +60,25 @@ export default function MyWorksPage() {
 
 
 	async function SendData() {
+        const doc: Doc = {
+            'name': workName,
+            'year': new Date().getFullYear(),
+            'author': workAuthor,
+			'ipfsHash': ''
+        };
 
-		const doc: Doc = {
-		'name': workName,
-		'year': new Date().getFullYear(),
-		'author': workAuthor,
-		'ipfsHash': workIpfs,
-		};
+        if (file) {
+            try {
+                const ipfsHash = await uploadIpfs.execute(file); // Call the uploadIpfs function
+                doc.ipfsHash = ipfsHash; // Set the IPFS hash in the doc object
+				console.log(ipfsHash);
 
-		try {
-			await createDoc.execute(doc, window);
-		} catch (error: any) {
-			console.log(error)
-		}
-	}
+                await createDoc.execute(doc, window);
+            } catch (error: any) {
+                console.log(error);
+            }
+        }
+    }
 
 	
 	async function getMyWorks(user_id: string) {
@@ -79,7 +89,8 @@ export default function MyWorksPage() {
 			});
 			const stringifiedEntities = extractedEntities.map((entity: { toString: () => any; }) => entity.toString()).join(', ');
 
-			const numberArray = stringifiedEntities.split(',').map((item: string) => Number(item.trim())); 
+			const numberArray = stringifiedEntities.split(',').map((item: string) => Number(item.trim()));
+			setWorkIds(numberArray)
 			
 			setWorks(fetchedWorks);
 			
@@ -126,7 +137,8 @@ export default function MyWorksPage() {
 				</div>
 				<div className="ml-file">
 				<input 
-					type="file" 
+					type="file"
+					accept=".epub,application/epub+zip" 
 					onChange={handleFileChange} 
 					placeholder="Choose File"/>
 				<button onClick={SendData}>Upload</button>
@@ -144,7 +156,7 @@ export default function MyWorksPage() {
 					<MyDocComponent
 						key={index}
 						data={doc}
-						deleteWork={deleteWork}/>
+						deleteWork={() => deleteWork(workIds[index])}/>
 				))}
 				</div>
 			</div>
