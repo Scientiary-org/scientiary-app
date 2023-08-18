@@ -18,11 +18,10 @@ const fetchAll = new FetchAll(new DocService());
 
 export default function HomePage() {
 
-	console.log(fetchAll.execute(window));
 	const navigate = useNavigate();
 	const [docList, setDocList] = useState<Doc[]>();
 	const [searchString, setSearchString] = useState<string>();
-	const [filteredItems, setFilteredData] = useState<Doc[]>();
+	const [filteredItems, setFilteredItems] = useState<Doc[]>();
 	const [view, setView] = React.useState('name');
 
 	const [imageDataUrl, setImageDataUrl] = useState<string | undefined>(undefined);
@@ -30,18 +29,19 @@ export default function HomePage() {
 	useEffect(() => {
 		fetchAll.execute(window).then((data) => {
 			setDocList(data);
-			setFilteredData(data);
+			setFilteredItems(data);
 		});
-
+		
 		const user_id = sessionStorage.getItem("user_id")
 		if (!user_id){
 			console.log("Teste")
 			navigate("/");
 		}
-	});
-
-
+	}, []);
+	
+	
 	const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setFilteredItems(docList);
 		if (!docList) return;
 
 		const { target } = event
@@ -55,7 +55,8 @@ export default function HomePage() {
 				const searchTextLower = text.toLowerCase();
 				return docName.includes(searchTextLower);
 			})
-			setFilteredData(filteredData);
+			console.log(filteredData[0]);
+			setFilteredItems(filteredData);
 		}
 
 		if(view === 'author'){
@@ -64,7 +65,7 @@ export default function HomePage() {
 				const searchTextLower = text.toLowerCase();
 				return docName.includes(searchTextLower);
 			})
-			setFilteredData(filteredData);
+			setFilteredItems(filteredData);
 		}
 
 		if(view === 'year'){
@@ -73,7 +74,7 @@ export default function HomePage() {
 				const searchTextLower = text.toLowerCase();
 				return docName.includes(searchTextLower);
 			})
-			setFilteredData(filteredData);
+			setFilteredItems(filteredData);
 		}
 	}
 
