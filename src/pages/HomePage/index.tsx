@@ -2,15 +2,12 @@ import "./styles.css"
 import SCI from "../../assets/SCI.svg";
 import { useNavigate } from "react-router-dom";
 import DocComponent from "../../components/DocComponent";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import { Doc } from "../../entities/Doc";
 import DocService from "../../services/DocService";
 import { FetchAll } from "../../use_cases/docs/FetchAll";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import React from "react";
-
-import {toPng} from 'html-to-image';
-import ePub from 'epubjs';
 
 declare let window: any;
 
@@ -18,21 +15,17 @@ const fetchAll = new FetchAll(new DocService());
 
 export default function HomePage() {
 
-	console.log(fetchAll.execute(window));
 	const navigate = useNavigate();
 	const [docList, setDocList] = useState<Doc[]>();
+	const [filteredItems, setFilteredItems] = useState<Doc[]>();
 	const [searchString, setSearchString] = useState<string>();
-	const [filteredItems, setFilteredData] = useState<Doc[]>();
 	const [view, setView] = React.useState('name');
-
-	const [imageDataUrl, setImageDataUrl] = useState<string | undefined>(undefined);
 
 	useEffect(() => {
 		fetchAll.execute(window).then((data) => {
 			setDocList(data);
-			setFilteredData(data);
 		});
-
+		
 		const user_id = sessionStorage.getItem("user_id")
 		if (!user_id){
 			console.log("Teste")
@@ -42,6 +35,7 @@ export default function HomePage() {
 
 
 	const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setFilteredItems(docList);
 		if (!docList) return;
 
 		const { target } = event
@@ -55,25 +49,26 @@ export default function HomePage() {
 				const searchTextLower = text.toLowerCase();
 				return docName.includes(searchTextLower);
 			})
-			setFilteredData(filteredData);
+			console.log(filteredData[0]);
+			setFilteredItems(filteredData);
 		}
-
+		
 		if(view === 'author'){
 			const filteredData = docList.filter((doc) => {
 				const docName = doc.author.toLowerCase();
 				const searchTextLower = text.toLowerCase();
 				return docName.includes(searchTextLower);
 			})
-			setFilteredData(filteredData);
+			setFilteredItems(filteredData);
 		}
-
+		
 		if(view === 'year'){
-			const filteredData = docList.filter((doc) => {
+			const filteredData = docList.filter((doc) => {	
 				const docName = doc.year.toString().toLowerCase();
 				const searchTextLower = text.toLowerCase();
 				return docName.includes(searchTextLower);
 			})
-			setFilteredData(filteredData);
+			setFilteredItems(filteredData);
 		}
 	}
 

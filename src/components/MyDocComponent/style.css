@@ -89,3 +89,64 @@
     background-color: lightskyblue;
 }
 
+.edit-container {
+    width: 95%;
+    margin-top: -10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    padding-top: 20px;
+    display: grid;
+    border-width: 3px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-color: rgb(0, 0, 0);
+    border-style: solid;
+    border-top: white;
+    background-color: rgb(238, 238, 238);
+}
+
+.update-input {
+    grid-column: 1;
+    display: flex;
+    flex-direction: row;
+    margin-left: 50px;
+   
+}
+
+.update-input h3 {
+    flex: 1;
+    font-weight: bold;
+    color: black;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.update-input input {
+    flex: 3;
+    margin-right: 50px;
+}
+
+.update-button {
+    grid-column: 2;
+    grid-row: 2; 
+}
+
+
+
+.update-button button {
+    border-radius: 15px;
+    border-color: transparent;
+    border-width: 2px;
+    background-color: #0048ff;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    height: 50px;
+    width: 50%;
+    
+}
+
+.update-button button:hover {
+    background-color: lightskyblue;
+}
+
