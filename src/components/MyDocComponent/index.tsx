@@ -8,9 +8,10 @@ import capa from "../../assets/Default.svg";
 interface Props {
     data: Doc
     deleteWork: (workId: number) => Promise<void>
+    updateWork: (workId: number) => Promise<void>
 }
 
-const MyDocComponent: React.FC<Props> = ({data, deleteWork}) => {
+const MyDocComponent: React.FC<Props> = ({data, deleteWork, updateWork}) => {
     
     const navigate = useNavigate();
     const [edit, setEdit] = useState(false);
@@ -30,6 +31,7 @@ const MyDocComponent: React.FC<Props> = ({data, deleteWork}) => {
                             <h5 className="year">Year: {Number(data.year)}</h5>
                             <button onClick={() => edit == false ? setEdit(true) : setEdit(false)} className="edit-button" >Edit</button>
                             <button onClick={() => id !== undefined ? deleteWork(id) : undefined}  className="delete-button" >Delete</button>
+
                         </div >
                     </div>
             </div>
@@ -55,7 +57,7 @@ const MyDocComponent: React.FC<Props> = ({data, deleteWork}) => {
                         />
                 </div>
                 <div className='update-button'>
-                    <button>Update Work</button>
+                    <button onClick={() => id !== undefined ? updateWork(id) : undefined} >Update Work</button>
                 </div>
             </div>
 

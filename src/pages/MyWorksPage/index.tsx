@@ -9,6 +9,7 @@ import { Upload } from "../../use_cases/ipfs/Upload";
 import IPFSService from "../../services/IPFSService";
 import { Delete } from "../../use_cases/docs/Delete";
 import { FetchAllByUser } from "../../use_cases/docs/FetchAllByUser";
+import { Update } from "../../use_cases/docs/Update";
 import MyDocComponent from "../../components/MyDocComponent";
 import React from "react";
 import Moralis from "moralis";
@@ -17,6 +18,7 @@ const createDoc = new Create(new DocService());
 const uploadIpfs = new Upload(new IPFSService());
 const deleteDoc = new Delete(new DocService());
 const fetchAllByUser = new FetchAllByUser(new DocService());
+const updateDoc = new Update(new DocService());
 await Moralis.start({
 	apiKey: import.meta.env.VITE_MORALIS_KEY,
 });
@@ -109,6 +111,18 @@ export default function MyWorksPage() {
 		}
 	}
 
+	async function updateWork(workId: number) {
+		try {
+			// Check if workName, workAuthor, and workIpfs are not empty
+			await updateDoc.execute(workId, workName, workAuthor, new Date().getFullYear(), window);
+			console.log("Work updated successfully!");
+		
+			}
+		catch (error: any) {
+			console.log(error);
+		}
+	}
+
 	return (
 		<div className="ml-container">
 		<div className="ml-top-bar">
@@ -156,7 +170,8 @@ export default function MyWorksPage() {
 					<MyDocComponent
 						key={index}
 						data={doc}
-						deleteWork={() => deleteWork(workIds[index])}/>
+						deleteWork={() => deleteWork(workIds[index])}
+						updateWork={() => updateWork(workIds[index])}/>
 				))}
 				</div>
 			</div>

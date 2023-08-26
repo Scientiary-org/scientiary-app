@@ -64,5 +64,17 @@ export default class DocService {
 
   return foundWork;
 }
+
+  async update(workId: number, title: string, author: string, year: number, window: any): Promise<Doc | undefined> {
+    const {ethereum} = window;
+    if(!ethereum) throw new Error("Ethreum object doesnt exist.");
+    const provider = new ethers.BrowserProvider(ethereum);
+    const signer = await provider.getSigner();
+    const LibraryContract = new ethers.Contract(contractAddress,Library.abi,signer);
+    let updatedWork = await LibraryContract.updateWork(workId, title, author, year);
+    console.log(updatedWork);
+
+  return updatedWork;
+  }
   
 }
