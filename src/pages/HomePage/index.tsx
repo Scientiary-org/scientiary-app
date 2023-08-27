@@ -20,6 +20,7 @@ export default function HomePage() {
 	const [filteredItems, setFilteredItems] = useState<Doc[]>();
 	const [searchString, setSearchString] = useState<string>();
 	const [view, setView] = React.useState('name');
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		fetchAll.execute(window).then((data) => {
@@ -47,7 +48,7 @@ export default function HomePage() {
 			const filteredData = docList.filter((doc) => {
 				const docName = doc.name.toLowerCase();
 				const searchTextLower = text.toLowerCase();
-				return docName.includes(searchTextLower);
+				return docName.includes(searchTextLower) && doc.name !== '';
 			})
 			console.log(filteredData[0]);
 			setFilteredItems(filteredData);
@@ -57,7 +58,7 @@ export default function HomePage() {
 			const filteredData = docList.filter((doc) => {
 				const docName = doc.author.toLowerCase();
 				const searchTextLower = text.toLowerCase();
-				return docName.includes(searchTextLower);
+				return docName.includes(searchTextLower) && doc.author !== '';
 			})
 			setFilteredItems(filteredData);
 		}
@@ -66,11 +67,19 @@ export default function HomePage() {
 			const filteredData = docList.filter((doc) => {	
 				const docName = doc.year.toString().toLowerCase();
 				const searchTextLower = text.toLowerCase();
-				return docName.includes(searchTextLower);
+				return docName.includes(searchTextLower) && doc.year !== 0;
 			})
 			setFilteredItems(filteredData);
+
+            setTimeout(() => {
+                setLoading(false); // Hide loading after filtering
+                setFilteredItems(filteredData);
+            }, 1500);
 		}
+	
 	}
+
+		
 
 	const handleChange = (event: React.MouseEvent<HTMLElement>, nextView: string) => {
 		setView(nextView);
@@ -122,7 +131,7 @@ export default function HomePage() {
 							{ filteredItems === undefined ?
 								<p>Carregando...</p>:
 								<div className="itens-list">
-									{filteredItems.map((doc, index) =>
+									{filteredItems?.map((doc, index) =>
 										<DocComponent 
 											data={doc}
 											key={index}
