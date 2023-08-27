@@ -25,6 +25,7 @@ export default function HomePage() {
 	useEffect(() => {
 		fetchAll.execute(window).then((data) => {
 			setDocList(data);
+			setFilteredItems(data);
 		});
 		
 		const user_id = sessionStorage.getItem("user_id")
